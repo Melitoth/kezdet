@@ -1,2 +1,3 @@
 Melinda: fehér
 Adam: fekete
+Melinda: kék
