@@ -1,3 +1,4 @@
 Melinda: fehér
 Adam: fekete
 Melinda: kék
+Melinda_branch:sárga
