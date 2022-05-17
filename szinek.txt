@@ -1,9 +1,0 @@
-Melinda: fehér
-Adam: fekete
-<<<<<<< HEAD
-Adam branch: Zöld
-=======
-Melinda: kék
-Melinda_branch:sárga
-Adam_branch: piros
->>>>>>> c58bd1df65a322a1db3146b3d20ee6257825e4f6

@@ -1,0 +1,174 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace osszegzes
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           const int N = 10;
+            Random velSzam = new Random();
+            int[] adatok = new int[N];
+
+            //feltöltés
+
+            for (int i=0; i<adatok.Length; i++)
+            {
+                adatok[i] = velSzam.Next(1000, 10000);
+            }
+                          
+            //kiiratás
+            for (int i=0; i <N;i++)
+            {
+                Console.WriteLine(adatok[i]);
+            }
+            //összegzés tétele
+
+            int osszeg = 0;
+            foreach(int elem in adatok)
+            {
+                osszeg += elem;
+            }
+            Console.WriteLine("A számok összege: " + osszeg);
+            Console.WriteLine("A számok átlaga: " + osszeg / N);
+
+
+            //megszámolás tétele
+            int paros = 0;
+            foreach(int elem in adatok)
+            {
+                if (elem%2 ==0)
+                {
+                    paros++;
+                }
+
+            }
+            Console.WriteLine("A páros számok darabszáma: " + paros);
+            Console.WriteLine("A páratlan számok darabszáma: " + (N-paros ));
+
+            //eldöntés tétele for és while ciklussal is
+            bool van = false;
+            foreach(int elem in adatok)
+            {
+                if (elem<3000)
+                {
+                    van = true;
+                }
+            }
+            if (van)
+                Console.WriteLine("van 3000-nél kisebb érték");
+
+
+            int k = 0;
+            van = false;
+            while( k < N & !van)
+            {
+                if (adatok[k]<3000 )
+                {
+                    van = true;
+                    Console.WriteLine("van 3000-nél kisebb értékünk");
+                }
+                k++;
+            }
+            //kiválasztás - a 3000-nél kisebbet
+
+            k = 0;
+            van = false;
+            int kisebb;
+            while (k < N & !van)
+            {
+                if (adatok[k] < 3000)
+                {
+                    van = true;
+                    kisebb = k;
+                    Console.WriteLine("van 3000-nél kisebb értékünk, ez a: "+ adatok[kisebb] );
+                }
+                k++;
+            }
+
+
+            //maximum kiválasztás
+
+            int legnagyobbIndex = 0;
+            int legnagybbErtek = adatok[0];
+
+            for (int i=1;i<N; i++) 
+            {
+                if (adatok[i]>legnagybbErtek )
+                {
+                    legnagybbErtek = adatok[i];
+                    legnagyobbIndex = i;
+                }
+                
+            }
+            Console.WriteLine("A legnagyobb érték a: " + legnagybbErtek + " Ez az elem a :" + (legnagyobbIndex+1 )+ "-dik");
+
+            //minimum kiválasztás
+
+            int legkisebbIndex = 0;
+            int legkisebbErtek = adatok[0];
+
+            for (int i = 1; i < N; i++)
+            {
+                if (adatok[i] < legkisebbErtek)
+                {
+                    legkisebbErtek = adatok[i];
+                    legkisebbIndex = i;
+                }
+
+            }
+            Console.WriteLine("A legkisebb érték a: " + legkisebbErtek + " Ez az elem a :" + (legkisebbIndex+1) + "-dik");
+
+            //összetett programozási tételek:
+            // 1. kiválogatás
+
+            int[] oszthatoOttel = new int[N];
+            int t = 0;
+
+            foreach(int elem in adatok)
+            {
+                if(elem%5==0)
+                {
+                    oszthatoOttel[t] = elem;
+                    t++;
+                }
+            }
+            //kiíratás for-ral
+            for(int i=0; i<t; i++)
+            {
+                Console.Write(oszthatoOttel[i] + "\t");
+            }
+
+            foreach(int elem in oszthatoOttel)
+            {
+                Console.Write(elem + "\t");
+             }
+
+            //feladatok: 64.old-15.feladat
+
+            const int G = 28;
+            Random veleSzam = new Random();
+            int[] adat = new int[G];
+
+            //feltöltés
+
+            for (int m = 0; m < adat.Length; m++)
+            {
+                adat[m] = veleSzam.Next(-10, 10);
+            }
+
+            for (int m = 0; m < G; m++)
+            {
+                Console.WriteLine(adat[m]);
+            }
+                
+
+            
+            Console.ReadKey();
+        }
+    }
+}

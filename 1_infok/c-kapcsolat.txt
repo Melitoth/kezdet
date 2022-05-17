@@ -1,0 +1,53 @@
+
+
+
+private void labKapcsolodas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                kapcsolat = new MySqlConnection("datasource=localhost; port=3306; username=root;password=");
+                kapcsolat.Open();
+                if (kapcsolat.State==ConnectionState.Open)
+                {
+                    labKapcsolodas.Text = "A kapcsolat létrejött";
+                    labKapcsolodas.ForeColor = Color.Green;
+
+                }
+                else
+                {
+                    labKapcsolodas.Text = "A kapcsolodás nem jött létre";
+                    labKapcsolodas.ForeColor = Color.Red;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btKapcsol_Click(object sender, EventArgs e)
+        {
+            if (kapcsolat.State==ConnectionState.Closed)
+            {
+                kapcsolat.Open();
+                labKapcsolodas.Text = "A kapcsolodaás elindult";
+                labKapcsolodas.ForeColor = Color.Green;
+                btBontas.Enabled = true;
+                btKapcsol.Enabled = false;
+            }
+        }
+
+        private void btBontas_Click(object sender, EventArgs e)
+        {
+            if (kapcsolat.State== ConnectionState.Open)
+            {
+                kapcsolat.Close();
+                labKapcsolodas.Text = "Akapcsolat magszakadt";
+                labKapcsolodas.ForeColor = Color.Red;
+                btKapcsol.Enabled = true;
+                btBontas.Enabled = false;
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+ List<BoldogOrszag> orszag = new List<BoldogOrszag>();
+            try
+            {
+                foreach (string sor in File.ReadAllLines("boldogsag.txt"))
+                {orszag.Add(new BoldogOrszag(sor));}
+         
+                foreach (BoldogOrszag elem in orszag)
+                {Console.WriteLine("{0} ", elem.orszag) ;}
+               
+            }
+            catch (IOException)
+            {Console.WriteLine("I/O hiba");}
+            
+            
+            Console.WriteLine("Count: {0}", orszag.Count); ------------------------------------------------hány sor van benne
+            Console.WriteLine("A legboldogabb ország: {0}", orszag[0].orszag);-----------------------------legelső a sorban
+            Console.WriteLine("A leg kevésbé boldog ország: {0}", orszag[orszag.Count-1].orszag);----------legutolsó
+            int i = 0;
+            foreach (BoldogOrszag elem in orszag)
+            {
+                if (elem.orszag == "Magyarország")
+                {
+                    Console.WriteLine("Magyarország az {0}. a sorban", i+1);-------------------------------hányadik a sorban
+                    Console.WriteLine(orszag[i].orszag);
+                }
+                i++;
+                
+            }
+            int j= 0;
+            char betu;
+            Console.WriteLine("Kérem a betűt: ");----------------------------------------------betű bekérés
+            betu = Convert.ToChar(Console.ReadLine());
+            foreach(BoldogOrszag elem in orszag)
+            {
+                if (elem.orszag[0] == betu)
+                    Console.WriteLine("A {0} betűvel kezdődő {1} a {2}. helyen van.", betu, elem.orszag, orszag[j].orszag);
+            }
+            j++;
+                
+            Console.ReadKey();
+        }
+
+------------------------------------------------------------------------------------------------------------------------------------
+static void Main(string[] args)
+        {
+            int beolv = 0;---------------------------------------------------------szám bekérés, összeadásuk
+            int osszeg =0;
+           
+            while (beolv<10)
+            {
+                osszeg +=beolv;
+               Console.WriteLine("Kérek egy számot: ");  
+                beolv=Convert.ToInt32(Console.ReadLine());
+                   
+               
+            }
+            
+             
+            Console.WriteLine("A beolvasott számok összege: {0}",osszeg);
+            Console.ReadKey();
+        }
+------------------------------------------------------------------------------------------------------------------------------------
+struct Tanulo
+        {
+            public string nev;
+            public string osztaly;
+            public double atlag;
+           
+        }
+        static void Main(string[] args)
+        {
+            string fajlNev = "Tanuloadatok.txt";
+            StreamWriter kiirtxt = null;
+            Tanulo[] tanulo = new Tanulo[100];
+                int db = 0;
+            Console.WriteLine("Adatsorok száma:");
+            db = Convert.ToInt32(Console.ReadLine());
+
+            for (int i=0; i<db; i++)
+            {
+                Console.Write("Név:  ");
+                tanulo[i].nev = Console.ReadLine();
+                Console.Write("Osztály:  ");
+                tanulo[i].osztaly = Console.ReadLine();
+                Console.Write("Átlag:  ");
+                tanulo[i].atlag = Convert.ToDouble(Console.ReadLine());
+             }
+            try
+            {
+                 kiirtxt = new StreamWriter(fajlNev);
+                kiirtxt.WriteLine("{0,11} {1,12} {2:0.00}", "Név"," Osztály"," Átlag");
+                for (int i= 0;i< db;i++)
+                {
+                    kiirtxt.WriteLine("{0,11} {1,12} {2:0.00}", tanulo[i].nev, tanulo[i].osztaly, tanulo[i].atlag);
+                }
+                kiirtxt.Close();
+            }
+
+            catch (IOException)
+            {
+                Console.WriteLine("I/O hiba");
+            }*/
+        

@@ -1,0 +1,143 @@
+private void btRegisztracio_Click(object sender, EventArgs e)
+
+        {
+            string kapcsolatString = "datasource=localhost; port=3306; username=root; password=; database=adatok;";
+                
+            string jelszo = tbJelszo.Text;
+            HashSet<char> karakterek = new HashSet<char>();
+            bool bennevan = false;
+
+            foreach (char betu in jelszo)
+            {
+
+
+            }
+
+
+            string parancs = null;
+            if (tbJelszo.Text == tbJelszoujra.Text || bennevan == true)
+            {
+                parancs =
+                   "INSERT INTO `felhasznalok`(`id`, `vez_nev`, `ker_nev`, `email`, `jelszo`) " +
+                   "VALUES (NULL, '" + tbVezeteknev.Text + "', '" + tbKeresztnev.Text + "', '" + tbEmailcim.Text +
+                   "','" + tbJelszo.Text + "')";
+            }
+            else
+            {
+                MessageBox.Show("A két beírt jelszó nem egyezik meg!");
+            }
+            MySqlConnection adatbKapcsolat = new MySqlConnection(kapcsolatString);
+            MySqlCommand commandDatabase = new MySqlCommand(parancs, adatbKapcsolat);
+            commandDatabase.CommandTimeout = 60;
+
+            try
+            {
+                adatbKapcsolat.Open();
+                MySqlDataReader myReader = commandDatabase.ExecuteReader();
+                MessageBox.Show("Sikeres az adatbevitel");
+                adatbKapcsolat.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            tbVezeteknev.Text = null;
+            tbKeresztnev.Text = null;
+            tbEmailcim.Text = null;
+            tbJelszo.Text = null;
+            tbJelszoujra.Text = null;
+
+        }
+
+        private void btListazas_Click(object sender, EventArgs e)
+        {
+            Listazas();
+        }
+           
+        private void Listazas()
+        {
+            string kapcsolatString = "datasource=localhost ;port=3306;" +
+                "username=root;password=;database=adatok;";
+            // Select all
+            string parancs = "SELECT * FROM felhasznalok";
+
+            MySqlConnection adatbKapcsolat = new MySqlConnection(kapcsolatString);
+            MySqlCommand commandDatabase = new MySqlCommand(parancs, adatbKapcsolat);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            try
+            {
+                adatbKapcsolat.Open();
+                reader = commandDatabase.ExecuteReader();
+                // Success, now list 
+                listBox1.Items.Clear();
+                // If there are available rows
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        listBox1.Items.Add(Convert.ToString(reader.GetInt64(0))
+                            + " " + reader.GetString(1) + " " + reader.GetString(2) + " " +
+                                        reader.GetString(3) + " " + reader.GetString(4));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nincs adat");
+                }
+
+                adatbKapcsolat.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
+        private void btTorles_Click(object sender, EventArgs e)
+        {
+            torol();
+        }
+private void torol()
+{
+    string[] seged = listBox1.SelectedItem.ToString().Split(' ');
+
+    string sszam = seged[0];
+
+    string kapcsolatString =
+        "datasource=127.0.0.1;port=3307;username=root;password=;database=adatok;";
+    string parancs = "DELETE FROM felhasznalok WHERE id=" + sszam;
+    MySqlConnection adatbKapcsolat = new MySqlConnection(kapcsolatString);
+    MySqlCommand commandDatabase = new MySqlCommand(parancs, adatbKapcsolat);
+    commandDatabase.CommandTimeout = 60;
+
+
+    try
+    {
+        adatbKapcsolat.Open();
+        //dataReader myReader = commandDatabase.ExecuteReader();
+        commandDatabase.ExecuteNonQuery();
+
+        MessageBox.Show("Sikeres törlés");
+
+        adatbKapcsolat.Close();
+    }
+
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);// Show any error message.
+    }
+--------------------------------------------------------------kör kerület,terület számolás
+private void btSzamol_Click(object sender, EventArgs e)
+        {
+            int sugar;
+            double T, K;
+            sugar = Convert.ToInt32(tbSugar.Text);
+            T = sugar * sugar * Math.PI;
+            K = 2 * sugar * Math.PI;
+
+            tbTerület.Text = ( Convert.ToString(T));
+            tbKerület.Text = ( Convert.ToString(K));

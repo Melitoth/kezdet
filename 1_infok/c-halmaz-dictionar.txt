@@ -1,0 +1,193 @@
+static void Main(string[] args)
+        {
+            HashSet<int> lotto7 = new HashSet<int>();  // halmaz létrehozása véletlen 7 db számokkal -ez nagyon jó a jelszo+pw tárolására, mert nézi h van e már olyan
+            Random vsz = new Random();
+
+            while (lotto7.Count() < 7)
+                lotto7.Add(vsz.Next(35) + 1);
+
+            foreach (int lottoszam in lotto7)
+            {
+                Console.Write(lottoszam + ", ");
+            }
+            int[] lottoszamok7 = new int[7];
+
+            lottoszamok7 = lotto7.ToArray();            // tömbbe rendezi és rendezetten kiírja
+            Array.Sort(lottoszamok7);
+            Console.WriteLine("A lottószámok rendezett sorrendben:");
+            foreach (int lsz in lottoszamok7)
+            {
+                Console.Write(lsz + "\t");
+            }
+
+
+            Console.ReadKey();
+        }
+------------------------------------------------------------------- dictionary
+List<Elnok> elnokNevek = new List<Elnok>();
+           
+
+
+            try
+            {
+
+                foreach (string sor in File.ReadAllLines("amerikai.txt"))
+                {
+                    elnokNevek.Add(new Elnok(sor));
+                }
+
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("I/O hiba");
+            }
+
+            Dictionary<string, int> partok = new Dictionary<string, int>();
+
+            foreach (Elnok elem in elnokNevek)
+            {
+                if (partok.ContainsKey(elem.part))
+                {
+                    partok[elem.part]++;
+                }
+
+                else
+                    partok.Add(elem.part, 1);
+            }
+            foreach (KeyValuePair<string,int> elem in partok)
+            {
+                Console.WriteLine("A párt neve {0}, elnökeinek száma {1}",elem.Key, elem.Value);
+            }
+            Console.ReadKey();
+        }
+---------------------------------------------------------------------------------------------------- dictionary 2
+List<Autoklista> kocsik = new List<Autoklista>();
+
+            try
+            {
+                foreach (string sor in File.ReadAllLines("Autok.txt"))
+                {
+                    kocsik.Add(new Autoklista(sor));
+                }
+
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("I/O hiba");
+            }
+            foreach (Autoklista elem in kocsik)
+            {
+                Console.WriteLine( elem.rendszam+ elem.tipus+ elem.szin+ elem.ev + elem.ar+ elem.tulaj);
+            }
+
+            Dictionary<string, int> tipusok = new Dictionary<string, int>();
+
+            foreach (Autoklista elem in kocsik)
+            {
+                if (tipusok.ContainsKey(elem.tipus))
+                {
+                    tipusok[elem.tipus]++;
+                }
+
+                else
+                    tipusok.Add(elem.tipus, 1);
+            }
+            foreach (KeyValuePair<string, int> elem in tipusok)
+            {
+                Console.WriteLine("A tipus neve {0}, darabszáma {1}", elem.Key, elem.Value);
+            }
+            string fajlNev = "autodarab.txt";
+            StreamWriter ir = null;
+            ir = new StreamWriter(fajlNev);
+            try
+            {
+                
+                
+                foreach (Autoklista elem in kocsik)
+                {
+                    ir.WriteLine ( elem.tipus + '\t'+ elem.szin + '\t' + elem.tulaj); //------------------- tabulátor az elválasztó
+                }
+                ir.Close();
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(" Hiba a fájlbaírás során!");
+            }
+            Console.ReadKey();
+---------------------------------------------------------------------------------------------------------3.dictionary
+//1. beolvasás és 2. sorok darabszáma
+            List<Dij> dijak = new List<Dij>();
+            try
+            {
+                foreach(string sor in File.ReadAllLines("dijak.txt"))
+                {
+                    dijak.Add(new Dij(sor));
+                }
+                foreach(Dij elem in dijak)
+                {
+                    Console.WriteLine("{0} évben {1} színész {2} díjat kapott", elem.ev, elem.nev,elem.dijuk);
+
+                }
+                Console.WriteLine("{0}sort tartalmaz", dijak.Count);
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("I/O hiba");
+            }
+            // 3.díjanként hány színész...
+
+            Dictionary<string, int> dijOsszesen = new Dictionary<string, int>();
+            foreach (Dij elem in dijak)
+            {
+                if (dijOsszesen.ContainsKey(elem.dijuk))
+                {
+                    dijOsszesen[elem.dijuk]++;
+                }
+                else
+                    dijOsszesen.Add(elem.dijuk, 1);
+            }
+            foreach(KeyValuePair<string,int> elem in dijOsszesen)
+            {
+                Console.WriteLine("A díj neve: {0} díjazottak száma: {1}",elem.Key, elem.Value);
+            }
+            //4. színész neve és díja
+           
+            Console.WriteLine("Kérem a színész nevét:");
+            string nev = Console.ReadLine();
+            foreach (Dij elem in dijak)
+            {
+                if (elem.nev == nev)
+                    Console.WriteLine( elem.nev + " "+ elem.dijuk);
+            }
+                
+
+            // 5.fájlba írás
+            string fajlNev = "Kossuth.txt";
+            StreamWriter ir = null;
+            try
+            {
+                ir = new StreamWriter(fajlNev);
+                foreach (Dij elem in dijak)
+                {
+                    if (elem.dijuk == "Kossuth-díj")
+                    {
+                        ir.Write("{0}at {1} színész kapott ", elem.dijuk, elem.nev ,'\n');
+                        ir.Write("\n");
+                       
+                    }
+                   
+                }
+                ir.Close();
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("hiba a fájlbaírás során!");
+            }
+            foreach (Dij elem in dijak)
+            {
+                if (elem.dijuk == "Kossuth-díj")
+                {
+                    Console.WriteLine("{0}at {1} színész kapott ", elem.dijuk, elem.nev, "\r");
+                }
+
+            }

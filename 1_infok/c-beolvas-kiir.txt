@@ -1,0 +1,95 @@
+
+
+-------------------------------------------------------------- beolvasas és kiíras
+ List<Eromu> szeleromuvek = new List<Eromu>();
+            try
+            {
+                foreach (string sor in File.ReadAllLines("szeleromu.txt"))
+                {
+                    szeleromuvek.Add(new Eromu(sor));
+                }
+                foreach (Eromu elem in szeleromuvek)
+                {
+                    Console.WriteLine("{0}évben {1} teljesítményű {2}darab szélerőművet állítottak {3} városban {4} megyében {5}térségben", elem.ev, elem.teljesitmeny, elem.darab, elem.varos, elem.megye, elem.terseg);
+                }
+
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("I/B hiba");
+            }
+
+            string fajlNev = "eromulista.txt";
+            StreamWriter ir = null;
+            try
+            {
+                ir = new StreamWriter(fajlNev);
+                foreach (Eromu elem in szeleromuvek)
+                {
+                    if (elem.varos== "Csém")
+                    {
+                        ir.Write("Csémen {0} darab eroművet építettek {1} évben", elem.darab, elem.ev);
+                        ir.Write("\n");
+
+                    }
+
+                }
+                ir.Close();
+
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("hiba a fájlbaírás során!");
+            }
+            Console.ReadKey();
+        }
+    }
+}
+---------------------------------------------------------------------------------- beolvasás
+{ 
+            StreamReader olvas = new StreamReader("fajl.txt");  // 91.oldal / 41.feladat - beolvasás
+            string[] nev = new string[10];
+            int i = 0;
+            Console.WriteLine("   Név");
+
+            try
+            {
+                for (i=0; i<10; i++)           //   i<nev.Lenght  is lehetne, ha nem a tömb tartalmának a számát írjuk be
+                {
+                    nev[i] = olvas.ReadLine();
+                    Console.WriteLine(nev[i]);
+                }
+                olvas.Close();
+
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(" I/O hiba");
+  }
+----------------------------------------------------------------  kiíras
+{
+            string fajlNev = "szamok.txt";
+            StreamWriter ir = null;
+            int[] a = new int[5];
+            int i = 0;
+            
+            Random vsz = new Random();
+            Console.WriteLine(" A számok: " );
+            for (i = 0; i < 5; i++)
+            {
+                a[i] = vsz.Next(101);
+                Console.Write("{0,5}", a[i]);
+             }
+            try
+            {
+                ir = new StreamWriter(fajlNev);
+                for (i = 0; i < 5; i++)
+                    ir.Write("{0,4}", a[i]);
+                    ir.Close();
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(" Hiba a fájlbaírás során!");
+            }
+            Console.ReadKey();
+}
